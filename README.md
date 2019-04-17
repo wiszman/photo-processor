@@ -81,4 +81,26 @@ Consumer should be running on the `waldo-app` container alongside the web app.
 ### Deliverables
 
 - Solution should be using Python 3.7.x, and extending the given setup.
-- Git repository with any required instructions for running it, uploaded on GitHub or GitLab or BitBucket. 
+- Git repository with any required instructions for running it, uploaded on GitHub or GitLab or BitBucket.
+
+### Instructions for running
+
+Download and install Docker
+
+Start the app:
+- `make start`
+
+Create or reset the db schema after booting the app:  
+- `make db-schema`
+
+- Login to RabbitMQ at http://localhost:15672/#/ and create queue called "photo-processor" from "Queues" tab
+
+- Send GET and POST requests to 0.0.0.0:3000/photos/pending and 0.0.0.0:3000/photos/process, respectively, using cURL or Postman.  POST body should be of type "application/JSON" and look like this:
+
+[
+	"< photo uuid>",
+  "< photo uuid>",
+  ...
+]
+
+- Thumbs will be created on /waldo-app-thumbs on the Docker image.  I have copied the results from the Docker mounted directory to the local project directory waldo-app-thumbs.  Note that 1/6 of the images on S3 was not accessible (403 error), possibly due to a permissions issue on S3.
